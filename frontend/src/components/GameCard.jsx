@@ -58,13 +58,13 @@ const GameCard = ({ game}) => {
                     background: 'rgba(255,255,255,0.05)',
                     border: 'none',
                     color: 'white',
-                    fontFamily: 'uppercae',
+                    fontFamily: 'uppercase',
                     cursor: 'pointer',
                     transition: 'background 0.3s'
                 }}
                 onMouseEnter={(e) => e.target.style.background = 'var(--accent-cyan)'}
                 onMouseLeave={(e) => e.target.style.background = 'rgba(255,255,255,0.05)'}
-                onClick={() => navigate(`/game/${game.id}`)}
+                onClick={() => navigate(`/games/${game.id}`)}
                 >
                     View Details
                 </button>
