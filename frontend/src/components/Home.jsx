@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Hero from './Hero';
 import GameCard from './GameCard';
 
@@ -71,43 +72,92 @@ const MOCK_GAMES = [
     }
 ];
 
-const Home = () =>{
-    const [ games, setGames] = useState([]);
-    const [loading,setLoading] = useState(true);
+
+const Home = () => {
+    const [games, setGames] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [selectedGenre, setSelectedGenre] = useState('');
+    const [sortBy, setSortBy] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_BACKEND_URL}/games`)
-           .then(res => res.json())
-           .then(data => {
-            setGames(data);
-            setLoading(false);
-           })
-           .catch(() => {
-            console.log("Backend not reachable , using mock data");
-            setGames(MOCK_GAMES);
-            setLoading(false);
-           });
-    }, []);
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login');
+            return;
+        }
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/games`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+            .then(res => {
+                if (!res.ok) throw new Error('Failed to fetch games');
+                return res.json();
+            })
+            .then(data => {
+                setGames(data);
+                setLoading(false);
+            })
+            .catch(() => {
+                console.log("Backend not reachable or auth failed, using mock data");
+                setGames(MOCK_GAMES);
+                setLoading(false);
+            });
+    }, [navigate]);
+
+    // Filtering and sorting logic
+    let displayedGames = [...games];
+    if (selectedGenre) {
+        displayedGames = displayedGames.filter(g => g.genre === selectedGenre);
+    }
+    if (sortBy === 'rating') {
+        displayedGames.sort((a, b) => b.rating - a.rating);
+    } else if (sortBy === 'downloads') {
+        displayedGames.sort((a, b) => parseInt(b.downloads) - parseInt(a.downloads));
+    } else if (sortBy === 'title') {
+        displayedGames.sort((a, b) => a.title.localeCompare(b.title));
+    }
 
     return (
         <main>
             <Hero />
 
             <section id="games" className="container" style={{ padding: '4rem 2rem'}}>
-                <div style = {{  marginBottom: '3rem' ,textAlign: 'center'}}>
-                    <h2 style={{ fontSize: '3rem', marginBottom: '1rem'}}>
-                        FEATURED <span style={{ color: 'var(--accent-cyan)'}}>GAMES</span>
-
-                    </h2>
-                    <div style={{ width: '100px', height: '4px',background: 'var(--accent-purple)',margin: '0 auto'}}></div>
+                <div style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'center', gap: '2rem' }}>
+                    <select
+                        value={selectedGenre}
+                        onChange={e => setSelectedGenre(e.target.value)}
+                        style={{ padding: '0.5rem', borderRadius: '8px' }}
+                    >
+                        <option value="">All Genres</option>
+                        {[...new Set(games.map(g => g.genre))].map(genre => (
+                            <option key={genre} value={genre}>{genre}</option>
+                        ))}
+                    </select>
+                    <select
+                        value={sortBy}
+                        onChange={e => setSortBy(e.target.value)}
+                        style={{ padding: '0.5rem', borderRadius: '8px' }}
+                    >
+                        <option value="">Sort By</option>
+                        <option value="rating">Rating</option>
+                        <option value="downloads">Downloads</option>
+                        <option value="title">Title</option>
+                    </select>
                 </div>
-
+                <div style={{ marginBottom: '3rem', textAlign: 'center' }}>
+                    <h2 style={{ fontSize: '3rem', marginBottom: '1rem' }}>
+                        FEATURED <span style={{ color: 'var(--accent-cyan)' }}>GAMES</span>
+                    </h2>
+                    <div style={{ width: '100px', height: '4px', background: 'var(--accent-purple)', margin: '0 auto' }}></div>
+                </div>
                 {loading ? (
-                    <div style={{ textAlign: 'center',padding: '2rem'}}>Loading Games...</div>
+                    <div style={{ textAlign: 'center', padding: '2rem' }}>Loading Games...</div>
                 ) : (
                     <div className="grid-games">
-                        {games.map(game => (
-                            <GameCard key={game.id} game={game} />
+                        {displayedGames.map(game => (
+                            <GameCard key={game.id} game={game} showInstall={true} />
                         ))}
                     </div>
                 )}

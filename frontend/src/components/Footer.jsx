@@ -4,11 +4,11 @@ const Footer = () => {
     return(
         <footer style={{
             marginTop: '5rem',
-            borderTop: '1px solid rgda(255,255,255,0.1)',
+            borderTop: '1px solid rgba(255,255,255,0.1)',
             padding: '4rem 0 2rem',
             background: 'linear-gradient(to bottom, var(--bg-primary), #000)'
         }}>
-            <div classNam="container" >
+            <div className="container" >
                 <div style={{
                     display: 'flex',
                     justifyContent: 'space-between',
@@ -26,29 +26,29 @@ const Footer = () => {
                     </div>
                     <div>
                         <h4 style={{ marginBottom: '1rem'}}>Studios</h4>
-                        <u1 style={{ listStyle: 'none',color:'var(--text-secondary)',display: 'flex',flexDirection: 'column',gap: '0.5rem'}}>
+                        <ul style={{ listStyle: 'none',color:'var(--text-secondary)',display: 'flex',flexDirection: 'column',gap: '0.5rem'}}>
                             <li>About Us</li>
                             <li>Our team</li>
                             <li>Careers</li>
                             <li>Press Kit</li>
-                        </u1>
+                        </ul>
                     </div>
                     <div>
                         <h4 style={{ marginBottom: '1rem'}}>Studios</h4>
-                        <u1 style={{ listStyle: 'none',color:'var(--text-secondary)',display: 'flex',flexDirection: 'column',gap: '0.5rem'}}>
+                        <ul style={{ listStyle: 'none',color:'var(--text-secondary)',display: 'flex',flexDirection: 'column',gap: '0.5rem'}}>
                             <li>Discord</li>
                             <li>Twitter</li>
                             <li>Instagram</li>
                             <li>Twitch</li>
-                        </u1>
+                        </ul>
                     </div>
                     <div>
                         <h4 style={{ marginBottom: '1rem'}}>Newsletter</h4>
                         <div style={{display: 'flex'}}>
                             <input type="email" placeholder="Enter your email" style={{
                                 padding: '0.8rem',
-                                background:'rgba(255,255,255,0.5)',
-                                border: '1px solid rgda(255,255,255,0.1)',
+                                background:'rgba(255,255,255,0.05)',
+                                border: '1px solid rgba(255,255,255,0.1)',
                                 color:'white',
                                 outline: 'none'
                             }}/>

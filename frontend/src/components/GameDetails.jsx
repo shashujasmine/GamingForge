@@ -1,14 +1,25 @@
 import React , {useState, useEffect} from 'react';
-import { useParams, Link} from 'react-router-dom';
+import { useParams, Link, useNavigate} from 'react-router-dom';
 import { ArrowLeft} from 'lucide-react';
 
 const GameDetails = () => {
     const {id}=useParams();
     const [game,setGame] = useState(null);
     const [loading,setLoading]=useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        fetch(`${import.meta.env.VITE_BACKEND_URL}/games/${id}`)
+        const token = localStorage.getItem('token');
+        if (!token) {
+            navigate('/login');
+            return;
+        }
+
+        fetch(`${import.meta.env.VITE_BACKEND_URL}/games/${id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
               .then(res => {
                 if (!res.ok) throw new Error("Game not found");
                 return res.json();
@@ -21,7 +32,7 @@ const GameDetails = () => {
                 console.error(err);
                 setLoading(false);
               });
-            },[id]);
+            },[id, navigate]);
             if (loading) return <div style = {{ textAlign: 'center', padding: '4rem'}}> Loading details...</div>;
             if (!game) return <div style = {{ textAlign: 'center', padding: '4rem'}}>Game not found.</div>;
 
