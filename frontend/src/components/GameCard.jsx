@@ -21,11 +21,16 @@ const GameCard = ({ game, showInstall }) => {
                 e.currentTarget.querySelector('.overlay').style.opacity = '0';
             }}
         >
-            <div style={{ position: 'relative', height: '250px' }}>
+            <div 
+                style={{ position: 'relative', height: '250px', cursor: 'pointer', overflow: 'hidden' }}
+                onClick={() => navigate(`/games/${game.id}`)}
+            >
                 <img
                     src={game.image}
                     alt={game.title}
-                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s' }}
+                    onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.1)'}
+                    onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
                 />
                 <div className="overlay" style={{
                     position: 'absolute',

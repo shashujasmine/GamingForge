@@ -55,7 +55,13 @@ const Hero = () => {
                 </p>
 
                 <div style={{ display: 'flex', gap: '1rem'}}>
-                    <button className="btn btn-primary" style={{ fontSize: '1.2rem', padding: '1rem 2rem'}}>
+                    <button 
+                        className="btn btn-primary" 
+                        style={{ fontSize: '1.2rem', padding: '1rem 2rem'}}
+                        onClick={() => {
+                            document.getElementById('games')?.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                    >
                         EXPLORE GAMES
                     </button>
                     <button className="btn" style={{ background: 'transparent', border: '2px solid var(--accent-cyan)', color: 'var(--accent-cyan)', fontSize: '1.2rem', padding: '1rem 2rem'}}>

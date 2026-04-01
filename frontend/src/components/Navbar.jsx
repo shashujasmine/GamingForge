@@ -54,7 +54,7 @@ const Navbar = () => {
 
             <div style={{ display: 'flex', gap: '2rem'}}>
                 {['Games', 'Studio','Careers', 'Community'].map((item) => (
-                    <a key={item} href={`#${item.toLowerCase()}`} style={{
+                    <a key={item} href={location.pathname === '/' ? `#${item.toLowerCase()}` : `/#${item.toLowerCase()}`} style={{
                     color: 'var(--text-secondary)',
                     fontWeight: '600',
                     transition: 'color 0.3s',
