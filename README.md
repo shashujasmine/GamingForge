@@ -12,6 +12,9 @@
 
 GameForge Studio is an immersive web interface designed for a gaming company. Built with a decoupled architecture, it leverages a high-performance **React (Vite)** frontend to deliver cinematic layouts and fluid micro-animations, while a secure **FastAPI** Python backend handles user authentication and data management.
 
+About Project:
+This project aims to create the user a better gaming platform and my aim is to create a platform to explore games , the buttons I have included at the top of the website studios , community are a part of my ideas , it will be my future scopes to develop at latest styles , and watch trailer , newsletter are the part of my ideas to update the user to give about new games . To build next generation gaming platform . 
+
 ---
 
 ## ✨ Key Features
