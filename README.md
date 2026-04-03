@@ -155,15 +155,4 @@ The project follows a **separated frontend-backend architecture**, making it eas
 * Improve personalization and recommendations
 * Expand game database and filtering options
 
----
 
-##  License
-
-This project is licensed under the MIT License.
-
----
-
-If you want next level improvement, I can:
-
-* Add **GitHub portfolio styling (badges, screenshots, demo link)**
-* Or make it **top-tier (resume/project submission ready)**
